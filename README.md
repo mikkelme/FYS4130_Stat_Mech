@@ -1,4 +1,4 @@
-# FYS4130_Stat_Mech
+# FYS4130 – Statistical Mechanics
 Coursework in [FYS4130 – Statistical Mechanics](https://www.uio.no/studier/emner/matnat/fys/FYS4130/v22/index.html)
 
 ## Mandatory exercise 1
