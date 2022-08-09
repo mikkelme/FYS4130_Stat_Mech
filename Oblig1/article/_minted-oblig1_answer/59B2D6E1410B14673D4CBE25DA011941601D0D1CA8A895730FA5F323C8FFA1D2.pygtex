@@ -1,0 +1,89 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{prob3b} \PYG{k+kn}{import} \PYG{o}{*}
+
+\PYG{k}{def} \PYG{n+nf}{equil\PYGZus{}states\PYGZus{}V}\PYG{p}{(}\PYG{n}{V\PYGZus{}start}\PYG{p}{,} \PYG{n}{V\PYGZus{}end}\PYG{p}{,} \PYG{n}{N}\PYG{p}{,} \PYG{n}{T}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} Gather equlibrium F, G, P and configurations for}
+\PYG{l+s+sd}{        increasing V for number of particles N and temperature T \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{V} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{n}{V\PYGZus{}start}\PYG{p}{,} \PYG{n}{V\PYGZus{}end}\PYG{p}{,} \PYG{n}{V\PYGZus{}end} \PYG{o}{\PYGZhy{}} \PYG{n}{V\PYGZus{}start} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{F} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{V}\PYG{p}{))}
+    \PYG{n}{G} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{V}\PYG{p}{))}
+    \PYG{n}{P} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{V}\PYG{p}{))}
+    \PYG{n}{states} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{((}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{V}\PYG{p}{),} \PYG{l+m+mi}{3}\PYG{p}{))}
+
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{V}\PYG{p}{)):}
+        \PYG{n}{F}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{states}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{minimum\PYGZus{}F}\PYG{p}{(}\PYG{n}{N}\PYG{p}{,} \PYG{n}{V}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{T}\PYG{p}{)}
+        \PYG{n}{P}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{cal\PYGZus{}P}\PYG{p}{(}\PYG{n}{states}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{V}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{T}\PYG{p}{)}
+        \PYG{n}{G}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{F}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{+} \PYG{n}{P}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{V}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+se}{\PYGZbs{}r}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{i}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{/}\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{V}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{, V = }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{V}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{l+s+si}{:}\PYG{l+s+s1}{.2f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{, ngamma = }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{gamma}\PYG{o}{*}\PYG{n}{N}\PYG{o}{/}\PYG{n}{V}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{l+s+si}{:}\PYG{l+s+s1}{.2f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{, state = }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{states}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{end}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{()}
+
+    \PYG{n}{dPdV} \PYG{o}{=} \PYG{n}{single\PYGZus{}derivative}\PYG{p}{(}\PYG{n}{V}\PYG{p}{,} \PYG{n}{P}\PYG{p}{)}
+    \PYG{n}{ddFddV} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{n}{dPdV}
+    \PYG{n}{phase\PYGZus{}trans} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{argwhere}\PYG{p}{(}\PYG{n}{ddFddV} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{)}\PYG{o}{.}\PYG{n}{ravel}\PYG{p}{()}
+
+
+    \PYG{n}{save} \PYG{o}{=} \PYG{k+kc}{True}
+    \PYG{n}{axis\PYGZus{}label\PYGZus{}size} \PYG{o}{=} \PYG{l+m+mi}{16}
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{num}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{dpi}\PYG{o}{=}\PYG{l+m+mi}{80}\PYG{p}{,} \PYG{n}{facecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}w\PYGZsq{}}\PYG{p}{,} \PYG{n}{edgecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{P}\PYG{p}{[}\PYG{n}{phase\PYGZus{}trans}\PYG{p}{],} \PYG{n}{V}\PYG{p}{[}\PYG{n}{phase\PYGZus{}trans}\PYG{p}{],} \PYG{n}{linewidth} \PYG{o}{=} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{n}{color} \PYG{o}{=} \PYG{n}{color\PYGZus{}cycle}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{))}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{P}\PYG{p}{,} \PYG{n}{V}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}o\PYGZsq{}}\PYG{p}{,} \PYG{n}{markersize} \PYG{o}{=} \PYG{l+m+mi}{5}\PYG{p}{)}
+    \PYG{n}{plot\PYGZus{}area}\PYG{p}{(}\PYG{n}{P}\PYG{p}{[}\PYG{n}{phase\PYGZus{}trans}\PYG{p}{],} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{gca}\PYG{p}{(),} \PYG{n}{color} \PYG{o}{=} \PYG{n}{color\PYGZus{}cycle}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{))}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{gca}\PYG{p}{()}\PYG{o}{.}\PYG{n}{axvline}\PYG{p}{(}\PYG{l+m+mf}{0.474811}\PYG{p}{,} \PYG{n}{linestyle} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{color} \PYG{o}{=} \PYG{n}{color\PYGZus{}cycle}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mf}{0.5}\PYG{p}{)}
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZdl{}P\PYGZus{}}\PYG{l+s+si}{\PYGZob{}eq\PYGZcb{}}\PYG{l+s+s2}{\PYGZdl{}\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{n}{axis\PYGZus{}label\PYGZus{}size}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZdl{}\PYGZbs{}tilde}\PYG{l+s+si}{\PYGZob{}V\PYGZcb{}}\PYG{l+s+s2}{\PYGZdl{}\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{n}{axis\PYGZus{}label\PYGZus{}size}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{(}\PYG{n}{pad}\PYG{o}{=}\PYG{l+m+mf}{1.1}\PYG{p}{,} \PYG{n}{w\PYGZus{}pad}\PYG{o}{=}\PYG{l+m+mf}{0.7}\PYG{p}{,} \PYG{n}{h\PYGZus{}pad}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{save}\PYG{p}{:}
+        \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}../article/figures/VeqP.pdf\PYGZdq{}}\PYG{p}{,} \PYG{n}{bbox\PYGZus{}inches}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}tight\PYGZdq{}}\PYG{p}{)}
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{num}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{dpi}\PYG{o}{=}\PYG{l+m+mi}{80}\PYG{p}{,} \PYG{n}{facecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}w\PYGZsq{}}\PYG{p}{,} \PYG{n}{edgecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{P}\PYG{p}{[}\PYG{n}{phase\PYGZus{}trans}\PYG{p}{],} \PYG{n}{G}\PYG{p}{[}\PYG{n}{phase\PYGZus{}trans}\PYG{p}{],} \PYG{n}{linewidth} \PYG{o}{=} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{n}{color} \PYG{o}{=} \PYG{n}{color\PYGZus{}cycle}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{))}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{P}\PYG{p}{,} \PYG{n}{G}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}o\PYGZsq{}}\PYG{p}{,} \PYG{n}{markersize} \PYG{o}{=} \PYG{l+m+mi}{5}\PYG{p}{)}
+    \PYG{n}{plot\PYGZus{}area}\PYG{p}{(}\PYG{n}{P}\PYG{p}{[}\PYG{n}{phase\PYGZus{}trans}\PYG{p}{],} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{gca}\PYG{p}{(),} \PYG{n}{color} \PYG{o}{=} \PYG{n}{color\PYGZus{}cycle}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{))}
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{gca}\PYG{p}{()}\PYG{o}{.}\PYG{n}{axvline}\PYG{p}{(}\PYG{l+m+mf}{0.474811}\PYG{p}{,} \PYG{n}{linestyle} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{color} \PYG{o}{=} \PYG{n}{color\PYGZus{}cycle}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mf}{0.5}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZdl{}P\PYGZus{}}\PYG{l+s+si}{\PYGZob{}eq\PYGZcb{}}\PYG{l+s+s2}{\PYGZdl{}\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{n}{axis\PYGZus{}label\PYGZus{}size}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZdl{}G\PYGZus{}}\PYG{l+s+si}{\PYGZob{}eq\PYGZcb{}}\PYG{l+s+s2}{\PYGZdl{}\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{n}{axis\PYGZus{}label\PYGZus{}size}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{(}\PYG{n}{pad}\PYG{o}{=}\PYG{l+m+mf}{1.1}\PYG{p}{,} \PYG{n}{w\PYGZus{}pad}\PYG{o}{=}\PYG{l+m+mf}{0.7}\PYG{p}{,} \PYG{n}{h\PYGZus{}pad}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{save}\PYG{p}{:}
+        \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}../article/figures/Geq.pdf\PYGZdq{}}\PYG{p}{,} \PYG{n}{bbox\PYGZus{}inches}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}tight\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlim}\PYG{p}{([}\PYG{l+m+mf}{0.34}\PYG{p}{,} \PYG{l+m+mf}{0.66}\PYG{p}{])}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylim}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{save}\PYG{p}{:}
+        \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}../article/figures/Geq\PYGZus{}zoom.pdf\PYGZdq{}}\PYG{p}{,} \PYG{n}{bbox\PYGZus{}inches}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}tight\PYGZdq{}}\PYG{p}{)}
+
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{num}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{dpi}\PYG{o}{=}\PYG{l+m+mi}{80}\PYG{p}{,} \PYG{n}{facecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}w\PYGZsq{}}\PYG{p}{,} \PYG{n}{edgecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{P}\PYG{p}{[}\PYG{n}{phase\PYGZus{}trans}\PYG{p}{],} \PYG{o}{\PYGZhy{}}\PYG{n}{dPdV}\PYG{p}{[}\PYG{n}{phase\PYGZus{}trans}\PYG{p}{],} \PYG{n}{linewidth} \PYG{o}{=} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{n}{color} \PYG{o}{=} \PYG{n}{color\PYGZus{}cycle}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{))}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{P}\PYG{p}{,} \PYG{n}{ddFddV}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}o\PYGZsq{}}\PYG{p}{,} \PYG{n}{markersize} \PYG{o}{=} \PYG{l+m+mi}{5}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{gca}\PYG{p}{()}\PYG{o}{.}\PYG{n}{axvline}\PYG{p}{(}\PYG{l+m+mf}{0.474811}\PYG{p}{,} \PYG{n}{linestyle} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{color} \PYG{o}{=} \PYG{n}{color\PYGZus{}cycle}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mf}{0.5}\PYG{p}{)}
+    \PYG{n}{plot\PYGZus{}area}\PYG{p}{(}\PYG{n}{P}\PYG{p}{[}\PYG{n}{phase\PYGZus{}trans}\PYG{p}{],} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{gca}\PYG{p}{(),} \PYG{n}{color} \PYG{o}{=} \PYG{n}{color\PYGZus{}cycle}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{))}
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZdl{}P\PYGZus{}}\PYG{l+s+si}{\PYGZob{}eq\PYGZcb{}}\PYG{l+s+s2}{\PYGZdl{}\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{n}{axis\PYGZus{}label\PYGZus{}size}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}\PYGZdl{}\PYGZbs{}frac\PYGZob{}\PYGZbs{}partial\PYGZca{}2 F\PYGZus{}}\PYG{l+s+si}{\PYGZob{}eq\PYGZcb{}}\PYG{l+s+s2}{\PYGZcb{}\PYGZob{}\PYGZbs{}partial V\PYGZca{}2\PYGZcb{} = \PYGZhy{} \PYGZbs{}frac\PYGZob{}\PYGZbs{}partial P\PYGZus{}}\PYG{l+s+si}{\PYGZob{}eq\PYGZcb{}}\PYG{l+s+s2}{\PYGZcb{}\PYGZob{}\PYGZbs{}partial V\PYGZcb{}\PYGZdl{}\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{l+m+mi}{20}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{(}\PYG{n}{pad}\PYG{o}{=}\PYG{l+m+mf}{1.1}\PYG{p}{,} \PYG{n}{w\PYGZus{}pad}\PYG{o}{=}\PYG{l+m+mf}{0.7}\PYG{p}{,} \PYG{n}{h\PYGZus{}pad}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{save}\PYG{p}{:}
+        \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}../article/figures/ddFddV.pdf\PYGZdq{}}\PYG{p}{,} \PYG{n}{bbox\PYGZus{}inches}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}tight\PYGZdq{}}\PYG{p}{)}
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+
+\PYG{k}{def} \PYG{n+nf}{single\PYGZus{}derivative}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} First order central finite difference \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{h} \PYG{o}{=} \PYG{l+m+mi}{1}
+    \PYG{n}{d} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{x}\PYG{p}{))}
+    \PYG{n}{d}\PYG{p}{[:]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{nan}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{h}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{n}{h}\PYG{p}{):}
+        \PYG{n}{d}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{n}{y}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{n}{h}\PYG{p}{]} \PYG{o}{\PYGZhy{}}  \PYG{n}{y}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{n}{h}\PYG{p}{])}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{h}\PYG{p}{)}
+
+    \PYG{k}{return} \PYG{n}{d}
+
+
+\PYG{k}{if} \PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZdq{}}\PYG{p}{:}
+    \PYG{n}{N} \PYG{o}{=} \PYG{l+m+mi}{5}
+    \PYG{n}{V\PYGZus{}start} \PYG{o}{=} \PYG{n}{N}
+    \PYG{n}{V\PYGZus{}end} \PYG{o}{=} \PYG{l+m+mi}{100}
+    \PYG{n}{T} \PYG{o}{=} \PYG{l+m+mi}{1}
+    \PYG{n}{equil\PYGZus{}states\PYGZus{}V}\PYG{p}{(}\PYG{n}{V\PYGZus{}start}\PYG{p}{,} \PYG{n}{V\PYGZus{}end}\PYG{p}{,} \PYG{n}{N}\PYG{p}{,} \PYG{n}{T}\PYG{p}{)}
+\end{Verbatim}
